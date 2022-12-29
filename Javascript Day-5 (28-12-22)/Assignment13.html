@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 13</title>
+</head>
+
+<body>
+    <h2>Assignment 13</h2>
+   
+        <a href="#" onclick="generate()">Add Contact</a>
+        <div id="display">
+
+        </div>
+        <br><br>
+
+    <script>
+        //generate is the onclick function of the link//
+        function generate() {
+            
+            var text = document.createElement('input');
+            text.type = "text";
+            var button = document.createElement('button');
+            button.innerText = "x";
+            button.onclick=close;
+            document.getElementById("display").appendChild(text);
+            document.getElementById("display").appendChild(button);
+        }
+
+        function close(){
+            this.previousElementSibling.remove();
+            this.remove();
+        }
+
+    </script>
+
+</body>
+
+</html>

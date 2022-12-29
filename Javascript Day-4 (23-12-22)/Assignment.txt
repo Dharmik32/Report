@@ -1,0 +1,68 @@
+Create following HTML files (with proper designing and layout) and use Javascript to satisfy the below mentioned requirements.
+
+ 
+
+1) numeric1.htm
+    Requirement :
+
+ 
+
+        - Check if the value entered in Text Box is a numeric value or not,
+            i.e., text characters and even null/empty values should not be allowed.
+        - Error messages : In case of empty field - "Please enter any numeric value" and
+            in case of non-numeric value - "Only numeric values are allowed. Please re-enter the value".
+            Final message - "Entered value is a numeric value".
+        -PROVIDE APPROPRIATE FOCUS TO THE ERROR FIELDS.
+
+ 
+
+
+    HINT : Use in-built javascript "isNaN()" function.
+
+ 
+
+2) numeric2.htm
+    Requirement :
+
+ 
+
+        - Check if the value entered in Text Box is a numeric value or not,
+        i.e., text characters and even null/empty values should not be allowed.
+        - Error message needs to be : In case of empty field - "Please enter any numeric value" and
+        in case of non-numeric value - "Only numeric values are allowed. Please re-enter the value". 
+        Final message - "Entered value is a numeric value".
+        - Provide appropriate focus to the error fields.
+
+ 
+
+    DO NOT USE in-built javascript "isNaN()" function.      MIGHT BE USE OF TYPEOF() return function
+
+ 
+
+3) submitfrombutton.htm
+    Requirement :
+
+ 
+
+        - Submit the form using "button" type instead of "submit" input type.
+4) singlespan.htm
+    Requirement :
+
+ 
+
+        - Label : "Please select your technology :".
+        - Consider following set of radio buttons :-
+        "PHP", "ASP.NET", "ASP", "JSP", "PERL", "Cold Fusion", "Other". Layout these buttons in a Horizontal manner.
+        - Clicking on a particular radio button should display the related technology name besides label : "You have selected : ".
+        - Use only one "span" HTML element for displaying the related message.
+        - Note that radio button should be selectable by clicking on the corresponding label.
+        
+5) multiplespan.htm
+    Requirement :
+        
+        - Label : "Please select your technology :"
+        - Consider following set of radio buttons :-
+          "PHP", "ASP.NET", "ASP", "JSP", "PERL", "Cold Fusion", "Other". Layout these buttons in a Horizontal manner.
+        - Clicking on a particular radio button should display the related technology name besides label : "You have  selected : ".
+        - Use multiple "span" HTML element for displaying the related message.
+        - Note that radio button should be selectable by clicking on the corresponding label.

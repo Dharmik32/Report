@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 4</title>
+</head>
+
+<body>
+
+    <p>
+    <h2>Assignment 4:</h2>
+    </p>
+    <!--Input type radio-->
+
+    <div>
+        <label for="name">Please select your technology :</label>
+    
+        <input type="radio" id="php" name="fav_language" value="PHP" onclick="display()">
+        <label for="php">PHP</label>
+
+        <input type="radio" id="asp.net" name="fav_language" value="ASP.NET" onclick="display()">
+        <label for="asp.net">ASP.NET</label>
+
+        <input type="radio" id="jsp" name="fav_language" value="JSP" onclick="display()">
+        <label for="jsp">JSP</label>
+
+        <input type="radio" id="perl" name="fav_language" value="PERL" onclick="display()">
+        <label for="perl">PERL</label>
+
+        <input type="radio" id="cold fusion" name="fav_language" value="Cold Fusion" onclick="display()">
+        <label for="cold fusion">Cold Fusion</label>
+
+        <input type="radio" id="other" name="fav_language" value="Other" onclick="display()">
+        <label for="other">Other</label>
+
+        <p id="result"></p>
+
+        <script>
+            function display() {
+                if (document.getElementById('php').checked) {
+                    document.getElementById("result").innerHTML = "You have selected : " + document.getElementById("php").value;
+                }
+                else if (document.getElementById('asp.net').checked) {
+                    document.getElementById("result").innerHTML = "You have selected : " + document.getElementById("asp.net").value;
+                }
+                else if (document.getElementById('jsp').checked) {
+                    document.getElementById("result").innerHTML = "You have selected : " + document.getElementById("jsp").value;
+                }
+                else if (document.getElementById('perl').checked) {
+                    document.getElementById("result").innerHTML = "You have selected : " + document.getElementById("perl").value;
+                }
+                else if (document.getElementById('cold fusion').checked) {
+                    document.getElementById("result").innerHTML = "You have selected : " + document.getElementById("cold fusion").value;
+                }
+                else{
+                    document.getElementById("result").innerHTML = "You have selected : " + document.getElementById("other").value;
+                }
+            }
+        </script>
+
+    </div>
+</body>
+
+</html>

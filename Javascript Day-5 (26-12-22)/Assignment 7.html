@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 7</title>
+</head>
+
+<body>
+    <div>
+        <p>
+        <h2>Assignment 7</h2>
+        </p>
+
+        <!--Input type Checkboxes-->
+        <p>Choose your Country</p>
+        <input type="checkbox" id="usa" name="sample" value="usa" onclick="change()">
+        <label for="usa">USA</label><br>
+        <input type="checkbox" id="uk" name="sample" value="uk" onclick="change()">
+        <label for="uk">UK</label><br>
+        <input type="checkbox" id="india" name="sample" value="india" onclick="change()">
+        <label for="india">India</label><br>
+        <input type="checkbox" id="Asia Pacific" name="sample" value="Asia Pacific" onclick="change()">
+        <label for="Asia Pacific">Asia Pacific</label><br>
+        <input type="checkbox" id="Australia" name="sample" value="Australia" onclick="change()">
+        <label for="Australia">Australia</label><br>
+        <input type="checkbox" id="Middle East" name="sample" value="Middle East" onclick="change()">
+        <label for="Middle East">Middle East</label><br>
+
+
+        <!-- <input type="checkbox" name="sample" />Check all -->
+        <input type="checkbox" id="Check All" name="sample1" onclick='selects()' value="Check All" />
+        <label for="Check All">Check All</label>
+        <!-- <input type="checkbox" id="check All" name ="sample1" onclick='deSelect()' value="Deselect All"/>   -->
+
+
+    </div>
+
+
+    <script type="text/javascript">
+        function selects() {
+            var ele = document.getElementsByName('sample');
+            for (var i = 0; i < ele.length; i++) {
+                if (ele[i].type == 'checkbox')
+                    ele[i].checked = true;
+            }
+        }
+
+        function deSelect() {
+            var ele = document.getElementsByName('sample');
+            for (var i = 0; i < ele.length; i++) {
+                if (ele[i].type == 'checkbox')
+                    ele[i].checked = false;
+
+            }
+        }
+
+        function change() {
+            var checkbox = document.querySelectorAll('input[name="sample"]').length;
+            var checked = document.querySelectorAll('input[name="sample"]:checked').length;
+
+            if (checkbox == checked) {
+                document.getElementsByName("sample1")[0].checked = true;
+            }
+            else {
+                document.getElementsByName("sample1")[0].checked = false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

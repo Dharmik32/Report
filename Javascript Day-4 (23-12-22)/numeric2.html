@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>
+        Numeric 2
+    </title>
+</head>
+<body>
+    <center>
+
+        <h1 style="margin-top: 10%;">
+
+            Numeric 2
+
+        </h1>
+
+        <form name="myform" onsubmit="return validation()">
+
+            <label for="numeric">Please Enter the Number: </label>&nbsp;
+
+            <input type="text" name="num" style=" margin-top: 1%;"> &nbsp; <input type="submit" value="Submit"><br><br>
+
+            <div id="error" style="margin-left: 10%; display: none; "></div><br>
+
+            <div id="mess" style="margin-left: 10%; display: none; "></div>
+
+        </form>
+
+        <script>
+
+            var num1 = document.forms['myform']['num'];
+
+            var error = document.getElementById('error');
+
+            var mess = document.getElementById('mess');
+
+            function validation() {
+
+                if (num1.value == '') {
+
+                    error.innerHTML = "<b><h3> Please enter any numeric value </h3><b>";
+
+                    error.style.display = "block";
+
+                    return false;
+
+                }
+
+                return true;
+
+            }
+
+        </script>
+
+    </center>
+</body>
+</html>

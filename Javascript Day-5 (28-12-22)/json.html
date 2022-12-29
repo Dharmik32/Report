@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <h2>Access a JavaScript object</h2>
+    <p id="demo"></p>
+
+    <script>
+        const myObj = { name: "John", age: 30, city: "New York" };
+        document.getElementById("demo").innerHTML = myObj.name;
+    </script> -->
+
+
+    <!--Modify a JavaScript Object-->
+    <!-- <h2>Modify a JavaScript Object</h2>
+    <p id="demo1"></p>
+
+    <script>
+        const myObj1 = { name: "John", age: 30, city: "New York" };
+        myObj1.name = "Gilbert";
+        document.getElementById("demo1").innerHTML = myObj1.name;
+
+    </script> -->
+
+    <!-- <h2>Creating an Object from a JSON String</h2>
+
+    <p id="demo"></p>
+
+    <script>
+        const txt = '{"name":"John", "age":30, "city":"New York"}'
+        const obj = JSON.parse(txt);
+        document.getElementById("demo").innerHTML = obj.name + ", " + obj.age;
+    </script> -->
+
+
+    <!-- <h2>Parsing a JSON Array.</h2>
+    <p id="demo"></p>
+
+    <script>
+        const text = '[ "Ford", "BMW", "Audi", "Fiat" ]';
+        const myArr = JSON.parse(text);
+        document.getElementById("demo").innerHTML = myArr[0];
+    </script> -->
+
+    <!--JSON.parse-->
+    <!-- <h2>Convert a string into a date object.</h2>
+
+    <p id="demo"></p>
+
+    <script>
+        const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
+        const obj = JSON.parse(text, function (key, value) {
+            if (key == "birth") {
+                return new Date(value);
+            } else {
+                return value;
+            }
+        });
+        document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth; 
+    </script> -->
+
+
+    <!--JSON.stringify()-->
+    <!--Create a JSON string from a JavaScript object.-->
+    <!-- <p id="demo"></p>
+    <script>
+        const obj = { name: "John", age: 30, city: "New York" };
+        const myJSON = JSON.stringify(obj);
+        document.getElementById("demo").innerHTML = myJSON;
+    </script> -->
+
+    <!-- <p id="demo"></p>
+    <script>
+        const obj = { name: "John", age: function () { return 30; }, city: "New York" };
+        const myJSON = JSON.stringify(obj);
+        document.getElementById("demo").innerHTML = myJSON;
+    </script> -->
+
+
+    <!-- <p id="demo"></p>
+
+    <script>
+        const myJSON = '{"name":"John", "age":30, "car":null}';
+        const myObj = JSON.parse(myJSON);
+
+        let text = "";
+        for (const x in myObj) {
+            text += x + ", ";
+        }
+        document.getElementById("demo").innerHTML = text;
+    </script> -->
+
+    
+    <h2>Access Array Values</h2>
+    <p id="demo"></p>
+
+    <script>
+        const myJSON = '{"name":"John", "age":30, "cars":["Ford", "BMW", "Fiat"]}';
+        const myObj = JSON.parse(myJSON);
+
+        document.getElementById("demo").innerHTML = myObj.cars[0];
+    </script>
+</body>
+
+</html>

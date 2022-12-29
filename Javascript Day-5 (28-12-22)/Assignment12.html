@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 12</title>
+</head>
+<body>
+
+    <div>
+        <h2>Assignment 12</h2>
+
+        <h3>Please select your country:</h3>
+
+        <select id="drop" onchange="showCountry()">
+
+            <option value="Please select" selected>Please select</option>
+            <option value="India">India</option>;
+            <option value="United kingdom">United kingdom</option>;
+            <option value="Rusia">Rusia</option>;
+            <option value="Unites state">United state</option>;
+            <option value="Australia">Australia</option>
+
+        </select>
+
+        <div id="notDisplay">
+
+            <p>Your Selected Country : India</p>
+            <p>Your Selected Country : United kingdom</p>
+            <p>Your Selected Country : Rusia</p>
+            <p>Your Selected Country : United state</p>
+            <p>Your Selected Country : Australia</p>
+
+        </div>
+
+        <p id="country"></p>
+
+    </div>
+
+    <script>
+
+        const take = document.getElementById('drop');
+        const noDisp = document.getElementById('notDisplay');
+        const cntry = document.getElementById('country');
+
+        const showCountry = () => {
+
+            if (take[take.selectedIndex].index === 0) {
+
+                cntry.innerHTML = "Your Selected Country : India <br>" +
+
+                    "Your Selected Country : United kingdom <br>" +
+
+                    "Your Selected Country : Rusia <br>" +
+
+                    "Your Selected Country : United state <br>" +
+
+                    "Your Selected Country : Australia <br>"
+
+            } else {
+                cntry.innerHTML = "Your Selected Country : " + take[take.selectedIndex].text;
+            }
+            noDisp.remove();
+        }
+    </script>
+</body>
+</html>
