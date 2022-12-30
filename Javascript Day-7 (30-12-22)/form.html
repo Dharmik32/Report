@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <title>Forms</title>
+</head>
+
+<boby style="text-align:center;   ">
+    <form name="reg" onsubmit="return dispaly()" style="background-color: antiquewhite;">
+        <h2>Form</h2>
+
+        <div>
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" id="fname">
+        </div>
+
+        <br>
+
+        <div>
+            <label for="lname">last Name</label>
+            <input type="text" name="lname" id="lname">
+        </div>
+
+        <br>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email">
+        </div>
+
+        <br>
+
+        <div>
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" id="phone">
+        </div>
+
+        <br>
+
+        <div>
+            <label for="pwd">Password</label>
+            <input type="password" minlength="8" name="pwd" id="pwd">
+        </div>
+
+        <br>
+
+        <button type="submit" value="submit" onclick="formSubmit()">Submit</button>
+        <input type="reset" value="reset">
+
+        <br><br>
+
+        <div id="mess"></div>
+
+    </form>
+
+
+    <script>
+
+        var fname = document.forms['reg']['fname'];
+        var lname = document.forms['reg']['lname'];
+        var email = document.forms['reg']['email'];
+        var phone = document.forms['reg']['phone'];
+        var pwd = document.forms['reg']['pwd'];
+        var message = document.getElementById('mess');
+
+        function dispaly() {
+            if(fname.value == "")
+            {
+                message.innerHTML = "Please Enter First Name";
+                return false;
+
+            }
+
+            else if(lname.value == "")
+            {
+                message.innerHTML = "Please Enter Last Name";
+                return false;
+            }
+
+            else if(email.value == "")
+            {
+                message.innerHTML = "Please Enter Email Address";
+                message.style.dispaly = "block";
+                return false;
+            }
+
+            else if(phone.value == "")
+            {
+                message.innerHTML = "Please Enter Phone Number";
+                return false;
+            }
+
+            else if(isNaN(phone.value))
+            {
+                message.innerHTML = "Please Enter Only Numeric Value for Phone Number";
+                return false;
+            }
+
+            else if (pwd.value == "")
+            {
+                message.innerHTML = "Please Enter Password";
+                return false;
+            }
+
+            else
+            {
+                alert("Form Submitted");
+            }
+
+        }
+        
+    </script>
+
+</boby>
+
+</html>
