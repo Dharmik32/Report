@@ -1,0 +1,85 @@
+Q-1 Write a query which will output 123,456.78(as string datatype) for the input value of 123456.77912.
+SELECT CAST(Round(123456.77912,2) AS varchar) AS string;
+
+Q-2 What will be the output of following query : (Explain the result)
+	SELECT INSERT("newyork", 4, 4, "jercy");
+
+SELECT INSERT("newyork", 4, 4, "jercy"); // newjercy
+// INSERT() function inserts a string within a string at the specified position and for a certain number of characters.
+
+
+Q-3 Write a query to find position of letter 'd' in the string 'abcdefgh'.
+
+SELECT Position("d" IN "abcdefgh") AS MatchPosition;
+
+
+Q-4 Write a query which will output "hello world" for input string "Hello World".
+
+Select lower("Hello World");
+
+
+Q-5 Write a query to find 3 characters from the left of any given string.
+
+SELECT LEFT('DHARMIK',3) AS Result;
+
+
+Q-6 Write a query to find 3 characters from the right of any given string.
+
+SELECT RIGHT('DHARMIK',3) AS Result;
+
+
+Q-7 Write a query which will return length of any given string.
+
+SELECT LENGTH("SQL Tutorial") AS Result;
+
+
+Q-8 Write a query which will output "------abcd" for input string "abcd".
+
+SELECT INSERT("abcd", 1, 0, "------");
+
+
+Q-9 Write a query which will output "abcd......" for input string "abcd".
+
+SELECT INSERT("abcd", 5, 0, "......");
+
+
+Q-10 Write a query which will output "abcd  " for input string "  abcd  ".
+
+SELECT LTRIM("  abcd  ") AS Result;
+
+
+Q-11 Write a query which will output "  abcd" for input string "  abcd  ".
+
+SELECT RTRIM("  abcd  ") AS Result;
+
+
+Q-12 Write a query which will output "is" for input string "The weather is very nice.".
+
+SELECT SUBSTRING("The weather is very nice.", 13, 2) AS ExtractString;
+
+
+Q-13 Write a query which will output "hellohellohello" for input string "hello".
+
+SELECT REPEAT("hello", 3);
+
+
+Q-14 Write a query which will output ".ecin yrev si rehtaew ehT" for input string "The weather is very nice.".
+
+SELECT REVERSE("The weather is very nice.");
+
+
+Q-15 Explain the use of function SOUNDEX().
+
+The SOUNDEX() function returns a four-character code to evaluate the similarity of two expressions.
+The SOUNDEX() converts the string to a four-character code based on how the string sounds when spoken.
+
+
+Q-16 Write a query which will output "is very nice." for input string "The weather is very nice.".
+
+SELECT SUBSTRING("The weather is very nice.", 13, 13) AS ExtractString;
+
+
+Q-17 Explain the use of TRIM function.
+
+The TRIM() function removes the space character OR other specified characters from the start or end of a string.
+By default, the TRIM() function removes leading and trailing spaces from a string.

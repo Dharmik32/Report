@@ -1,0 +1,150 @@
+UPDATE  studentpresent_dharmik Table For Present Column
+
+Update studentpresent_dharmik SET present = 6 where recid = 1;
+
+Update studentpresent_dharmik SET present = 13 where recid = 2;
+
+Update studentpresent_dharmik SET present = 18 where recid = 3;
+
+
+Insert Into studentpresent_dharmik (recid, studentid, month, present) values (4, "19dcs004", 4, 22);
+
+Insert Into student_dharmik (recid, Name) values (4, "Kunj");
+
+Insert Into studentdetail_dharmik (recid, studentid, standard, flagsex) 
+values (4, "19dcs004", 7, "Female");
+
+Insert Into studenthours_dharmik (recid, studentid, datex, hours)
+values (4, "19dcs004", '2022-8-12', 8);
+
+Insert Into product_dharmik (recid, name) values (104, "TV");
+
+Insert Into productprice_dharmik (recid, productid, code, effdt, price) values
+(104, 4, "dha", '2021-11-10', 10000);
+
+
+
+Q-1 Write a query which will print name of each student, and his or her attendance report for current month. 
+Fields : Name, Attendance Report for Current Month
+
+Under "Attendance Report for Current Month" column:
+		if 'studentpresent.present' is less than or equal to 7 print "Poor", 
+		if 'studentpresent.present' is more than 7 and less than or equals 15 print "Good", 
+		if 'studentpresent.present' is more than 15 and less than or equals 20 print "Better", 
+		if 'studentpresent.present' is more than 20 print "Best".
+
+
+Select name,
+CASE
+	when present<=7 then 'Poor'
+	when present>=7 and present<=15 then 'Good'
+	when present>=15 and present<=20 then 'Better'
+	Else 'Best'
+END AS Attendance Report
+from student_dharmik natural join studentpresent_dharmik;
+
+
+Q-2 Write a query to print student name, total number of hours for Jan, Feb, March month. Information for each student should be printed in a single row.
+
+	Fields : Name, Working Hours for Jan, Working Hours for Feb, Working Hours for March
+
+	See following example:
+	Name		Working Hours for Jan	Working Hours for Feb	Working Hours for March
+	Minesh		80			70			90
+	Reena		70			80			90
+
+
+select name,
+sum(case when 1=month(datex) then hours
+end)as 'Working Hours for jan',
+sum(case when 2=month(datex) then hours
+end) as 'Working Hours for feb',
+sum(case when 3=month(datex) then hours
+end ) as 'Working Hours for march' from student_dharmik t1
+inner join studenthours_dharmik t2 on t1.recid=t2.recid group by name; 
+
+
+Q-3 Print information for the student having name like "Mira", "Kabir", "Om", "Manas"
+	Fields: Name, Standard
+
+Select name, standard from student_dharmik natural join studentdetail_dharmik where name IN ('Dharmik A.', 'Dev A.');
+
+
+Q-4 Print information for the student having name other than "Mira", "Kabir", "Om", "Manas"
+	Fields: Name, Standard
+
+select name, standard from student_dharmik natural join studentdetail_dharmik where name NOT IN ('Dharmik', 'Dev');
+
+Q-5 Print information for the student having presence for Jananuary between 20 to 25.
+	Fields: Name, Standard, Present
+
+select name,standard,present from student_dharmik as st inner join studentpresent_dharmik as sp
+    on st.recid = sp.recid
+    where sp.Month=4 and sp.present between 20 and 25 and
+    st.recid in (select recid, standard from studentdetail_dharmik);
+
+
+Q-6 Print information for the student having charcter "r" at the third position of their name.
+	Fields: Name, Standard
+	Eg: It should print information for "Mira", "Gira" etc.
+
+select name, standard from student_dharmik natural join studentdetail_dharmik where student_dharmik.name LIKE '___r%';
+
+
+Q-7 Print information for the student having "bhai" in their name. 
+	Fields: Name, Standard
+
+select name, standard from student_dharmik natural join studentdetail_dharmik where student_dharmik.name LIKE '%dha%';
+
+
+Q-8 Print information for the student who do not have any presence in the college.
+	Fields: Name, Standard
+
+select name, standard from student_dharmik as st inner join studentdetail_dharmik as sd on st.recid=sd.recid 
+inner join studentpresent_dharmik as sp on st.recid=sp.recid where present<=20;
+
+
+Q-9 Write a query which will print name of each student, and his or her attendance report for current month. 
+	Fields : Name, Attendance Report for Current Month
+
+	In "Attendance Report for Current Month" column 
+	if student has presence for that month then print "Present"
+	else print "Not Present".
+
+select Name, present, case
+   when present<10 then 'not Present'
+   when 10<=present then 'Present'
+   ELSE 'failllll'
+   end as result
+   from student_dharmik as st inner join studentpresent_dharmik as sp
+   on st.recid=sp.recid 
+   where sp.month=6;
+
+
+Q-10 Execute following queries and evaluate the output by giving appropriate reason.
+	SELECT STRCMP('text', 'text2');
+	SELECT STRCMP('text2', 'text');
+	SELECT STRCMP('text', 'text');
+
+SELECT STRCMP('text', 'text2');  // -1 It returns -1 when the first argument is smaller than the second
+SELECT STRCMP('text2', 'text');  //  1 It returns 1 when the second one is smaller the first one.
+SELECT STRCMP('text', 'text');   // 0 It returns 0 if both of the strings are same
+
+
+
+Q-11 Print the student information having average presence (in percentage) for Jan, Feb and March between 60 to 75.
+	Fields: Name, Standard, Present
+
+select name,
+sum(case when 1=month(datex) then hours
+end)as 'Working Hours for jan',
+sum(case when 2=month(datex) then hours
+end) as 'Working Hours for feb',
+sum(case when 3=month(datex) then hours
+end ) as 'Working Hours for march' from student_dharmik t1
+inner join studenthours_dharmik t2 on t1.studentid=t2.studentid group by name; 
+
+
+Q-12 List information of the product having "Maximum Price" within date range 01-01-2006 to 15-01-2006
+
+select p.name, pp.productid, pp.code, pp.effdt, max(pp.price) from product_dharmik as p inner join productprice_dharmik as pp on p.recid = pp.recid where effdt between '2021-10-20' and '2022-11-27'; 

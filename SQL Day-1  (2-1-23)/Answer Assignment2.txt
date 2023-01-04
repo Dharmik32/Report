@@ -1,0 +1,115 @@
+- Create Table
+
+Create Table student_dharmik (recid int NOT NULL, Name varchar(255), PRIMARY KEY (recid));
+
+Create Table studentdetail_dharmik (recid int NOT NULL, 
+studentid varchar(255) NOT NULL, 
+standard int, 
+flagsex varchar(255), 
+PRIMARY KEY (studentid));
+
+Create Table studentpresent_dharmik (recid int NOT NULL, 
+studentid varchar(255) NOT NULL PRIMARY KEY, 
+month int, 
+present int);
+
+Create Table studenthours_dharmik (
+recid int NOT NULL, 
+studentid varchar(255) NOT NULL PRIMARY KEY, 
+datex date, 
+hours int);
+
+
+- Insert Record in Each table
+
+Insert Record in student_dharmik
+
+Insert Into student_dharmik (recid, Name) values (1, "Dharmik");
+
+Insert Into student_dharmik (recid, Name) values (2, "Dev");
+
+Insert Into student_dharmik (recid, Name) values (3, "Jay");
+
+
+
+- Insert Record in studentdetail_dharmik 
+
+Insert Into studentdetail_dharmik (recid, studentid, standard, flagsex) 
+values (1, "19dcs001", 12, "Male"),
+(2, "19dcs002", 10, "Male"),
+(3, "19dcs003", 8, "Male");
+
+
+- Insert Record in studentpresent_dharmik 
+
+Insert Into studentpresent_dharmik (recid, studentid, month, present)
+values (1, "19dcs001", 1,  100),
+(2, "19dcs002", 2, 200),
+(3, "19dcs003", 3, 101);
+
+- Insert Record in studenthours_dharmik
+
+Insert Into studenthours_dharmik (recid, studentid, datex, hours)
+values (1, "19dcs001", '2022-7-11', 12),
+(2, "19dcs002", '2021-10-27', 9),
+(3, "19dcs003", '2021-12-19', 10);
+
+
+select student_dharmik.Name, studentdetail_dharmik.standard, studentdetail_dharmik.flagsex 
+from student_dharmik 
+inner join studentdetail_dharmik 
+on student_dharmik.recid = studentdetail_dharmik.recid;
+
+
+-   Find SUM of student hours.
+select sum(hours) as TotalHours from studenthours_dharmik;
+
+
+ -   Find Average Present of each student.
+select avg(present) as Present from studentpresent_dharmik;
+
+select student_dharmik.Name, avg(studentpresent_dharmik.present) as Present from student_dharmik inner join
+studentpresent_dharmik on student_dharmik.recid = studentpresent_dharmik.recid;
+
+
+-   Find Minimum present among all students.
+select min(present) as MinPresent from studentpresent_dharmik;
+
+select name, min(present) as MinPresent from student_dharmik, studentpresent_dharmik where student_dharmik.recid is NOT NULL;
+
+
+-   Find Maximum present among all students.
+select max(present) as MaxPresent from studentpresent_dharmik;
+
+select name, max(present) as MaxPresent from student_dharmik, studentpresent_dharmik where student_dharmik.recid is NOT NULL;
+
+
+-   Display fields like Name, Date, Hours from "studenthours_dharmik" table
+
+ -   DD/MM/YY
+
+select student_dharmik.Name, DATE_FORMAT(studenthours_dharmik.datex, "%d/%m/%Y") as 'Date', studenthours_dharmik.hours 
+from student_dharmik 
+inner join studenthours_dharmik 
+on student_dharmik.recid = studenthours_dharmik.recid;
+
+-   MM/DD/YY
+
+select student_dharmik.Name, DATE_FORMAT(studenthours_dharmik.datex, "%m/%d/%Y") as 'Date', studenthours_dharmik.hours 
+from student_dharmik 
+inner join studenthours_dharmik 
+on student_dharmik.recid = studenthours_dharmik.recid;
+
+-   YYYY-MM-DD
+
+select student_dharmik.Name, studenthours_dharmik.datex, studenthours_dharmik.hours 
+from student_dharmik 
+inner join studenthours_dharmik 
+on student_dharmik.recid = studenthours_dharmik.recid;
+
+-   MM/DD Day 
+
+select student_dharmik.Name, DATE_FORMAT(studenthours_dharmik.datex, "%m/%d %a") as 'Date', studenthours_dharmik.hours 
+from student_dharmik 
+inner join studenthours_dharmik 
+on student_dharmik.recid = studenthours_dharmik.recid;

@@ -1,0 +1,73 @@
+Create Table
+
+Create Table newstudent_dharmik (recid int, surname varchar(255), 
+firstname varchar(255), middlename varchar(255), 
+gender varchar(255), admitdate date, endeffdt date);
+
+- Insert Record in Table
+
+Insert Record in newstudent_dharmik
+
+Insert Into newstudent_dharmik (recid, surname, firstname, middlename, gender, admitdate, endeffdt) 
+values (1, "Shah", "Raj", "Rakesh", "Male", '2019-07-19', '2023-08-23'),
+(2, "Patel", "Ekta", "R.", "Female", '2021-01-04', '2021-12-15'),
+(3, "Patel", "Mira", "ant", "Female", '2006-01-05', '2006-02-07'),
+(4, "Soni", "Kabir", "Rajeshbhai", "Male", '2008-12-22', '2010-11-10'),
+(5, "Zala", "Om", "RahulKumar", "Male", '2012-08-20', '2014-10-22');
+(6, "Shah", "Mr. Dev", "Manasbhai", "Male", '2007-07-15', '2009-04-27');
+
+select * from newstudent_dharmik;
+
+Q-1	List out the information of students whose surname is "Shah".
+
+	Select recid, surname, firstname, middlename, gender, admitdate, endeffdt from newstudent_dharmik where surname = 'Shah';
+
+
+Q-2	List out the information of all the Male students.
+
+	Select recid, surname, firstname, middlename, gender, admitdate, endeffdt from newstudent_dharmik where gender = 'Male';
+
+
+Q-3	List out the information of all the Female students, whose surname is "Patel" or have 	been admitted after than 1-Jan-2006.
+
+	select recid, surname, firstname, middlename, gender, admitdate, endeffdt from newstudent_dharmik where surname = 'Patel' OR admitdate = '2006-01-01';
+
+
+Q-4	List out the information of all the students whose second name ends with "Bhai".
+
+	select recid, surname, firstname, middlename, gender, admitdate, endeffdt from newstudent_dharmik where middlename LIKE '%Bhai';
+
+
+Q-5	List out the information of all the students whose first name starts with "M" and 	second name has "ant".
+
+	select recid, surname, firstname, middlename, gender, admitdate, endeffdt from newstudent_dharmik where firstname LIKE 'M%' AND middlename LIKE '%ant%';
+
+
+Q-6	List out the information of all the students whose surname has "c" in the third place.
+
+	select recid, surname, firstname, middlename, gender, admitdate, endeffdt from newstudent_dharmik where surname LIKE '__a%';
+
+
+Q-7	List the name's of the all the students in "Ekta R. Patel" format.
+
+	Select Concat(firstname,'  ',LEFT(middlename,1),'.  ',surname)as Full_Name from newstudent_dharmik; 
+
+
+Q-8	List out First Name as well as its respective length for all the students.
+
+	select recid, firstname as First_Name, LENGTH(firstname) as Length from newstudent_dharmik; 
+
+
+Q-9	Append the First Name with "bhai" for all the male students whose First Name does not 	contain "bhai".
+
+	Select Concat(firstname , "bhai") as First_Name from newstudent_dharmik where gender = "Male";
+
+
+Q-10	List out First Name of all the male students with "Mr." before the First Name.
+
+	Select Concat("Mr.", firstname) as First_Name from newstudent_dharmik where gender = "Male";
+
+
+Q-11	List out First Name of all the students which sounds like "Mira".
+
+	Select firstname from newstudent_dharmik where firstname sounds like 'Mira';

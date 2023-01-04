@@ -1,0 +1,166 @@
+Q-1	I want to add 3 days to the current date. Write all possible queries to perform this operation. Explain each one of them.
+
+	SELECT DATE_ADD(CURRENT_DATE(), INTERVAL 3 DAY); 
+
+Q-2	I want to add 3 years to the current date. Write all possible queries to perform this operation. Explain each one of them.
+
+	SELECT DATE_ADD(CURRENT_DATE(), INTERVAL 3 YEAR);    
+
+Q-3	I want to add 3 months to the current date. Write all possible queries to perform this operation. Explain each one of them.
+
+	SELECT DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH);
+
+Q-4	I want to deduct 2 days from the current date.  Write all possible queries to perform this operation. Explain each one of them.
+
+	SELECT DATE_ADD(CURRENT_DATE(), INTERVAL -2 DAY); 
+
+Q-5	Write a query to add 5 days and 15 hours to date and time "2007-01-26 12:30:45".
+
+	Select Addtime("2007-01-26 12:30:45", "15:0:0"); 
+
+Q-6	Write all possible queries which will return current date.
+	
+	SELECT CURRENT_DATE();
+
+	SELECT CURDATE();
+	
+	SELECT CURRENT_TIMESTAMP();
+
+	SELECT NOW();
+
+Q-7	Write all possible queries which will return current time. 
+
+	SELECT CURTIME()
+
+	SELECT CURRENT_TIMESTAMP();
+
+	SELECT NOW();
+
+Q-8	Input Date is "2007-01-26 12:30:45". Write queries to output following date formats:
+
+	- "January 26, 2007"
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%M %d, %Y");  
+
+
+
+	- "The 26th of January"
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "The %dth of %M");  
+
+	
+
+	- 2007
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%Y");  
+
+
+
+	- 07
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%y");
+
+  
+
+	- 26/1/7
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%c/%y");  
+
+
+	
+	- 26/01/07
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y"); 
+
+
+
+	- 26/01/2007
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%Y"); 
+
+
+
+	- 01/26/07
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%m/%d/%y");
+
+
+
+	- 26/01/07 12:30:45
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y  %h:%i:%s"); 
+
+
+
+	- 26/01/07 12:30:45 PM
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y  %h:%i:%s %p");  
+
+	SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y %r"); 
+
+
+Q-9	Input Date is "2007-01-26 12:30:45". Write queries to output following date formats:
+
+	- Friday
+
+	SELECT DATE_FORMAT("2007-01-26", "%W"); 
+
+
+
+	- 26 (Explanation: 26th day of the month)
+	
+	SELECT DATE_FORMAT("2007-01-26", "%d");  
+
+
+
+	- 6 (Explanation: 6th day of the week)
+
+	SELECT DATE_FORMAT("2007-01-26", "%w");  
+
+
+
+	- 26 (Explanation: 26th day of the year)
+
+	SELECT DATE_FORMAT("2007-01-26", "%j");  
+
+
+Q-10	Explain UNIX_TIMESTAMP and FROM_UNIXTIME functions with examples.
+
+	MySQL FROM_UNIXTIME() returns a date /datetime from a version of unix_timestamp. 
+	The return value is in ‘YYYYY-MM-DD HH:MM:SS’ format or YYYYMMDDHHMMSS.
+	uuuuuu format depending upon the context of the function ( whether numeric or string). 
+	If specified, the result is formatted according to a given format string.
+
+	Example: MySQL FROM_UNIXTIME() function
+	SELECT FROM_UNIXTIME(1255033470);
+
+	UNIX_TIMESTAMP() returns a Unix timestamp in seconds.
+	When this function used with a date argument, 
+	it returns the value of the argument as an unsigned integer in seconds
+
+	Example: SELECT UNIX_TIMESTAMP();
+
+
+Q-11	Write the output of the following query and explain it.
+
+	SELECT PERIOD_ADD(200601, 3);
+
+	SELECT PERIOD_ADD(200601, 3); // output 200604
+
+The PERIOD_ADD() function adds a specified number of months to a period.
+The PERIOD_ADD() function will return the result formatted as YYYYMM.
+
+
+Q-12	Write the output of the following query and explain it.
+
+	SELECT PERIOD_DIFF(200601, 200609);
+
+	SELECT PERIOD_DIFF(200601, 200609); // output -8
+
+The PERIOD_DIFF() function returns the difference between two periods. The result will be in months.
+period1 and period2 should be in the same format.
+
+
+Q-13	Explain the use of "LAST_INSERT_ID()" function in real life applications.
+
+The LAST_INSERT_ID() function returns the AUTO_INCREMENT id of the last row that has been inserted or updated in a table.

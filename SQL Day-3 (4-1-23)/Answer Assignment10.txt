@@ -1,0 +1,157 @@
+Create Table
+
+Table - I :	officestaff
+Fields	:	recid (Primary Key), name, designation, salary, overtimesalary, bossno, addressid (Reference Key)
+
+Create Table officestaff_dharmik (recid int NOT NULL, 
+name varchar(255), designation varchar(255), 
+salary int, overtimesalary int, 
+bossno int, addressid int,
+PRIMARY KEY (recid),
+FOREIGN KEY (addressid) REFERENCES address_dharmik(recid));
+
+
+
+Table - II :	address
+Fields :	recid (Primary Key), address1, address2, city, county, postalcode, country
+
+Create Table address_dharmik (recid int NOT NULL, 
+address1 varchar(255), 
+address2 varchar(255), 
+city varchar(255), 
+county varchar(255), 
+postalcode int, 
+country varchar(255),
+PRIMARY KEY (recid));
+
+- Insert Record in Table
+
+Insert Into address_dharmik (recid, address1, address2, city, county, postalcode, country) values
+(1, "S.G Highway", "Science City", "Ahmedabad", "Gujarat", 320008, "India"),
+(2, "M.G Road", "Garden City", "Rajkot", "Gujarat", 362275, "India"),
+(3, "Metro Station", "Audi Showroom", "Surat", "Gujarat", 375531, "India"),
+(4, "Bus Station", "Railway", "Ahmedabad", "Gujarat", 320008, "India");
+
+
+Insert Into officestaff_dharmik (recid, name, designation, salary, overtimesalary, bossno, addressid) values
+(1, "Nileshbhai", "Programmer", 10000, 0, 2, 1),
+(2, "Mehul", "Backend", 8000, 1200, 3, 2),
+(3, "rajesh", "Frontend", 7000, 1500, 4, 3),
+(4, "ram", "QA", 5000, 1000, 1, 4); 
+
+
+
+select * from address_dharmik;
+select * from officestaff_dharmik;
+
+
+
+Write queries for following requirements:
+
+Q-1	List Name, Designation and Salary of all "officestaff" members.
+
+	select name, designation, salary from officestaff_dharmik;
+
+
+Q-2	List Name and Salary of all the people who are working as "Programmer".
+
+	select name, designation, salary from officestaff_dharmik where designation = "Programmer";
+
+
+
+Q-3	List all the information about those people who are earning less than Rs.10,000/- .
+
+	select * from officestaff_dharmik where salary < 10000;
+
+
+Q-4	List all the information about those staff members who fall in the salary range of 	Rs.5000/- to Rs.10,000/- .
+
+	select * from officestaff_dharmik where salary between 5000 and 10000;
+
+
+Q-5	List Name of all the office staff members in Lower Case.
+
+	select Lower(name) as Name from officestaff_dharmik;
+
+
+Q-6	List Name of all the office staff members in following format:
+	For example, if name is "umeshbhai" then display it in the format "Umeshbhai".
+
+	select Concat(UPPER(LEFT(name, 1)), Lower(substr(name, 2))) as Name from officestaff_dharmik;
+
+
+Q-7	List all the information about those people who works for "Nileshbhai".
+
+	select * from officestaff_dharmik natural join address_dharmik where bossno = 1;
+
+
+Q-8	List all the information about those members with salary greater than or equal to Rs.3000/- or working directly under "Nileshbhai".
+
+	select * from officestaff_dharmik natural join address_dharmik where salary = 3000 OR bossno = 1;
+
+Q-9	List Name, Salary, Over-time Salary of all the office staff members.
+
+	select name, salary, overtimesalary from officestaff_dharmik;
+
+
+Q-10	Perform above MySQL statement again, but now 0(Zero) should be substituted for NULL in 	Over-time Salary field.
+
+	select name, salary, IFNULL(overtimesalary, 0) from officestaff_dharmik;
+
+
+Q-11	List Name and Total Monthly Salary (Salary + Over-time Salary) of all the office staff 	members.
+
+	select name, (salary + overtimesalary) from officestaff_dharmik;
+
+
+Q-12	List Name and Total Annual Salary of all the office staff members.
+
+	select name, (salary + overtimesalary)*12 from officestaff_dharmik;
+
+
+Q-13	List Name and Total Daily Salary of all the office staff members. (Consider a month is 	of 30 days).
+	
+	select name, (salary + overtimesalary)/30 from officestaff_dharmik;
+
+
+Q-14	List all the information of the person earning Highest Salary (Salary + Over-time 	Salary) in the staff.
+
+	select * from officestaff_dharmik natural join address_dharmik where salary + overtimesalary in 
+(select max(salary + overtimesalary) from officestaff_dharmik);
+
+
+Q-15	List all the information of the person earning Least Salary (Salary + Over-time Salary) 	in the staff.
+
+	select * from officestaff_dharmik natural join address_dharmik where salary + overtimesalary in 
+(select min(salary + overtimesalary) from officestaff_dharmik);
+
+
+Q-16	List all the information about those who earn the Highest Salary (Salary + Over-time 	Salary) and those who earn the Least Salary (Salary + Over-time Salary) in the staff.
+
+	select * from officestaff_dharmik natural join address_dharmik where (salary + overtimesalary) >=
+(select max(salary + overtimesalary) from officestaff_dharmik)  OR (salary + overtimesalary) <= (select min(salary + overtimesalary) from officestaff_dharmik);
+
+Q-17	List all the information about the person who earns more than his boss.
+
+	select * from officestaff_dharmik as d1 join officestaff_dharmik as os ON
+d.bossno = os.addressid WHERE d.salary > os.salary;
+
+
+Q-18	List Name, Designation, Salary and City of each staff member.
+
+	select os.name, os.designation, os.salary, a.city from officestaff_dharmik as os, 
+address_dharmik as a where a.recid = os.recid;
+
+
+
+Q-19	Using "address" table list total number of persons residing in "Ahmedabad" city.
+
+	select COUNT(city) as Total_No_Person, city from address_dharmik where city = 'Ahmedabad';
+
+
+Q-20	List those City Name where 3 or more than 3 people resides.
+
+	select city from address_dharmik group by city having COUNT(city) >= 2;
+
+
+

@@ -1,0 +1,124 @@
+- Create Table
+
+Create Table student_dharmik (recid int NOT NULL, Name varchar(255), PRIMARY KEY (recid));
+
+Create Table studentdetail_dharmik (recid int NOT NULL, 
+studentid varchar(255) NOT NULL, 
+standard int, 
+flagsex varchar(255), 
+PRIMARY KEY (studentid));
+
+Create Table studentpresent_dharmik (recid int NOT NULL, 
+studentid varchar(255) NOT NULL PRIMARY KEY, 
+month int, 
+present int);
+
+Create Table studenthours_dharmik (
+recid int NOT NULL, 
+studentid varchar(255) NOT NULL PRIMARY KEY, 
+datex date, 
+hours int);
+
+
+Create Table product_dharmik (recid int NOT NULL, 
+name varchar(255), 
+PRIMARY KEY (recid));
+
+Create Table productprice_dharmik (recid int NOT NULL, 
+productid int NOT NULL, 
+code varchar(255), 
+effdt date, 
+price int);
+
+
+- Insert Record in Table
+
+Insert Record in student_dharmik
+
+Insert Into student_dharmik (recid, Name) values (1, "Dharmik");
+
+Insert Into student_dharmik (recid, Name) values (2, "Dev");
+
+Insert Into student_dharmik (recid, Name) values (3, "Jay");
+
+
+
+- Insert Record in studentdetail_dharmik 
+
+Insert Into studentdetail_dharmik (recid, studentid, standard, flagsex) 
+values (1, "19dcs001", 12, "Male"),
+(2, "19dcs002", 10, "Male"),
+(3, "19dcs003", 8, "Male");
+
+
+- Insert Record in studentpresent_dharmik 
+
+Insert Into studentpresent_dharmik (recid, studentid, month, present)
+values (1, "19dcs001", 1,  100),
+(2, "19dcs002", 2, 200),
+(3, "19dcs003", 3, 101);
+
+- Insert Record in studenthours_dharmik
+
+Insert Into studenthours_dharmik (recid, studentid, datex, hours)
+values (1, "19dcs001", '2022-7-11', 12),
+(2, "19dcs002", '2021-10-27', 9),
+(3, "19dcs003", '2021-12-19', 10);
+
+- Insert Record in product_dharmik
+
+Insert Into product_dharmik (recid, name) values (101, "Pencil"),
+(102, "Pen"), (103, "watch"), (4, "Mobile");
+
+
+- Insert Record in productprice_dharmik 
+
+Insert Into productprice_dharmik (recid, productid, code, effdt, price) values
+(101, 1, "abc", '2022-12-10', 10),
+(102, 2, "def", '2022-11-27', 100),
+(103, 3, "xyz", '2021-10-20', 500);
+
+
+-   Modification requirement:
+
+-   1)Change value of 'student_dharmik.name' with any other value for student.recid = 3.
+
+	Update student_dharmik SET name = "Raj" where recid = 3;
+
+-   2)Update all "student_dharmik" records to append character " A." as the middle name for "student_dharmik.name" field.
+
+	Update student_dharmik SET name = CONCAT(name, ' A.');
+
+-   3)Update all "productprice_dharmik" records to add 25.00 in "price" field.
+
+	Update productprice_dharmik SET price = price+25.00;
+
+-   4)Update "product_dharmik" table to add "A" in 'product_dharmik.name' where related 'product_dharmik.code = AB'.
+	
+	Update product_dharmik SET name = CONCAT(name, 'A') where recid IN (Select recid from productprice_dharmik where code = "abc");
+
+ -   5)Update all "studentpresent_dharmik" records to add 2 in 'studentpresent_dharmik' where related 'studenthours_dharmik.hours >= 8'.
+
+	Update studentpresent_dharmik SET present = present+2 where recid IN (select recid from studenthours_dharmik where hours>=8);
+
+
+
+-   Delete requirement:
+        
+-   1)Remove a record from "product_dharmik" table where 'product_dharmik.recid = 4'
+
+	Delete from product_dharmik where product_dharmik.recid = 4;
+
+        
+-   2)Remove all "student_dharmik" records where the 'student_dharmik.name' starts with character "R".
+
+	Delete from student_dharmik where name LIKE 'R%';
+
+  
+-   3)Remove all "studentdetail_dharmik" record where related 'studenthours_dharmik.hours <= 9'.
+
+	Delete from studentdetail_dharmik where recid IN (Select recid from studenthours_dharmik where hours <= 9);
+
+
+
+

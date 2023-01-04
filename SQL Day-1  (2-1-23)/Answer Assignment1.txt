@@ -1,0 +1,93 @@
+- Create Table
+
+Create Table Student_Details_1(Name varchar(255), Standard int, sex varchar(255), MonthlyPresent int, DailyHours int);
+
+Create Table Products_1(Name varchar(255), Price varchar(255)); 
+
+Create Table Materials_1(Name varchar(255), Price varchar(255), Effective_Date date);
+
+
+
+- Insert Record in Each table
+
+Insert Record in Student_Details_1
+
+Insert Into Student_Details_1 (Name, Standard, sex, MonthlyPresent, DailyHours) values ("Dharmik", 12, "Male", 1,  9);
+
+Insert Into Student_Details_1 (Name, Standard, sex, MonthlyPresent, DailyHours) values ("Ram", 10, "Male", 12,  8);
+
+Insert Into Student_Details_1 (Name, Standard, sex, MonthlyPresent, DailyHours) values ("Dev", 11, "Male", 1,  9);
+
+Insert Into Student_Details_1 (Name, Standard, sex, MonthlyPresent, DailyHours) values ("Rahul", 8, "Male", 23,  7);
+
+Insert Into Student_Details_1 (Name, Standard, sex, MonthlyPresent, DailyHours) values ("Jay", 12, "Male", 10,  6);
+
+
+- Display all the records for Student_Details_1 tables 
+
+select * from Student_Details_1;
+
+
+
+- Insert Record in Products_1
+
+Insert Into Products_1 (Name, Price) values ("TV", 25000);
+
+Insert Into Products_1 (Name, Price) values ("Mobile", 20000);
+
+Insert Into Products_1 (Name, Price) values ("AC", 30000);
+
+Insert Into Products_1 (Name, Price) values ("Watch", 12000);
+
+Insert Into Products_1 (Name, Price) values ("Product1", 20000);
+
+
+- Display all records of Products_1
+
+Select * from Products_1;
+
+
+
+- Insert Record in Materials_1 
+
+Insert Into Materials_1 (Name, Price, Effective_Date) 
+values ("Material1", 1000, '2000-12-22'), 
+("Material2", 1200, '2012-8-23'), 
+("Material3", 1700, '2015-4-20'), 
+("Material4", 500, '2021-7-16'), 
+("Material5", 900, '2022-7-11');
+
+
+- Display all records of Materials_1
+
+Select * from Materials_1;
+
+
+
+
+- Remove all the records from each tables (with and without using DELETE statement).
+
+DELETE FROM Student_Details_1;
+
+DELETE FROM Products_1;
+
+DELETE FROM Materials_1;
+
+TRUNCATE TABLE Student_Details_1
+
+TRUNCATE TABLE Products_1
+
+TRUNCATE TABLE Materials_1
+
+
+
+
+- Delete all the above tables.
+
+Drop Table Student_Details_1;
+
+Drop Table Products_1;
+
+Drop Table Materials_1;
+
+
