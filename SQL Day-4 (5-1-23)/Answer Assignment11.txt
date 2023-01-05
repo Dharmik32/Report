@@ -1,0 +1,219 @@
+Create Table
+
+Create Table student_dharmik11 (recid int NOT NULL, 
+rollno int, fname varchar(255), sname varchar(255), 
+surname varchar(255), admitdate date, 
+birthdate date, standard int,
+sex varchar(255));
+
+- Insert Record in Table
+
+Insert Into student_dharmik11 (recid, rollno, fname, sname, surname, admitdate, birthdate, standard, sex) values
+(1, 101, "Kamlesh", "Rajubhai", "Patel", '2006-01-01', '2000-01-01', 11, "Male"),
+(2, 102, "Rakesh", "Rahulbhai", "Shah", '2006-10-01', '2001-10-10', 10, "Male"),
+(3, 103, "Mehul", "Vishalbhai", "Soni", '2007-12-27', '2002-12-29', 10, "Male");
+
+
+Write a query for following requirement:
+=======================================
+
+Q-1	Display Full Name of all the male students whose first name ends with "h" and are admitted between 1st January 2006 to 1st August 2006.
+
+	Eg:
+
+	|----------------------|
+	|FULL NAME	       |	
+	|----------------------|
+	|Kamlesh Rajubhai Patel|
+	------------------------
+
+	Here "Kamlesh" is the value of 'fname' column, "Rajubhai" of 'sname' and "Patel" of 'surname' column. And first character is in capital for fname, sname, surname and each column value is separated by single space.
+
+
+	select Concat(fname, " ", sname, " ", surname) as FULL_NAME from student_dharmik11 where sex = "Male" and fname LIKE '%h'  
+and admitdate between '2006-01-01' and '2006-08-01';
+
+
+
+
+Tables Used:
+===========
+
+1) product (recid, mfrid, description, price, qtyonhand)
+=> create table product_dharmik11
+   (recid int not null,
+   mfrid int not null,
+   description varchar(20),
+   price int, qty int);
+
+Insert Into product_dharmik11 (recid, mfrid, description, price, qty) values
+(1, 1, "PEN", 100, 60),
+(2, 2, "Pencil", 20, 100),
+(3, 3, "Watch", 500, 10);
+
+select * from product_dharmik11;
+
+
+2) orders (recid, customerid, orderdate, salesrepsid, productid, qty, amount)
+=> create table orders_dharmik
+   (recid int not null,
+   customerid int,
+   orderdate date,
+   salesrepsid int,
+   productid int, qty int,
+   amount int,
+   primary key(recid));
+
+
+Insert Into orders_dharmik (recid, customerid, orderdate, salesrepsid, productid, qty, amount) values
+(1, 201, '2015-11-23', 10, 1001, 3, 12000),
+(2, 202, '2019-12-12', 11, 1002, 2, 10000),
+(3, 203, '2020-07-08', 12, 1003, 4, 8000);
+
+select * from orders_dharmik;
+
+
+3) customer (recid, company, salesrepsid, creditlimit)
+=> create table customer_dharmik
+   (recid int not null, company varchar(25),
+   salesrepsid int not null, creditlimit int,
+   primary key (recid),
+   foreign key (salesrepsid) references salesreps_dharmik(recid))
+
+
+Insert Into customer_dharmik (recid, company, salesrepsid, creditlimit) values
+(1, "ABC", 1, 25000),
+(2, "DEF", 2, 32000),
+(3, "XYZ", 3, 46000);
+
+
+select * from customer_dharmik;
+
+
+
+4) salesreps (recid, name, officeid, designation, hiredate, manager, quota, sales, age)
+=> Create Table salesreps_dharmik (recid int NOT NULL,
+   name varchar(255), officeid int, designation varchar(255),
+   hiredate date, manager varchar(255), quota int,
+   sales int, age int, primary key(recid),
+   foreign key (officeid) references office_dharmik(recid));
+
+Insert Into salesreps_dharmik (recid, name, officeid, designation, hiredate, manager, quota, sales, age) values
+(1, "Kamlesh", 1, "Account manager", '2006-01-01', "Mehul", 10, 10000, 21),
+(2, "Rajesh", 2, "Sales manager", '2005-12-25', "Raju", 11, 12000, 21),
+(3, "Dharam", 3, "Account executive", '2005-11-20', "Rahul", 12, 11000, 22);
+
+select * from salesreps_dharmik;
+
+
+
+5) office (recid, city, region, manager, targetsales, actualsales)
+=> create table office_dharmik
+   (recid int not null, city varchar(20),
+   region varchar(10),
+   manager varchar(10),
+   targetsales int, actualsales int,
+   primary key (recid));
+
+
+Insert Into office_dharmik (recid, city, region, manager, targetsales, actualsales) values
+(1, "Jaipur", "Science City", "Rakesh", 80000, 25000),
+(2, "Jaipur", "Garden City", "Dev", 90000, 30000),
+(3, "Ahmedabad", "Metro Station", "Jay", 88000, 64000);
+
+select * from office_dharmik;
+
+
+Write queries for below requirements:
+=====================================
+
+Q-1	Find Name of all those sales representatives whose offices are in cities ending with 
+	"pur" and who have atleast 2 customers. The sales representative must be hired before 
+	1st January 2006 and his/her minimum age should be 21 yrs.
+
+	Display fields : Sales Rep. Name, Office City, No. of Customers, Hired on
+
+	
+	select name, city, COUNT(cs.recid), hiredate, age from customer_dharmik as cs inner join salesreps_dharmik
+	as sale on cs.salesrepsid = sale.recid inner join office_dharmik as off on sale.officeid = off.recid
+	where hiredate<('2007-01-01') and age > 20 and city LIKE '%pur' group by sale.recid having count(cs.recid>=1);
+
+
+
+Q-2	Find following information for each customer:
+
+	Display fields : Company Name, Sales Rep. Name, Sales Rep. Office City, Company Credit
+
+	
+	select cs.company, sr.name, off.city, cs.creditlimit from customer_dharmik as cs
+	inner join salesreps_dharmik as sr on cs.salesrepsid=sr.recid inner join office_dharmik as off
+	on sr.officeid = off.recid;
+
+
+
+Q-3	Find following information for each office:
+
+	Office city, Total Sales Rep., Total sale by all sales Rep.,
+	Target Sales, Actual Sales, Difference of Target and Actual Sales.
+
+	Display fields : Office City, No. of Sales Rep., Total Sale, Target Sales, Actual  Sales, Difference.
+
+
+select city,count(officeid),sum(sales),targetsales,actualsales,(targetsales-actualsales) as diff 
+from office_dharmik as of inner join salesreps_dharmik as sa
+on of.recid = sa.officeid
+group by officeid;
+ 
+
+
+
+Q-4	Find following information for each product:
+
+	Product description, Price, Quantity on hand, Total no. of 
+	orders for each product, Total quantity ordered, Total amount of the orders for each product.
+
+	Display fields : Description, Price, Quantity, Orders, Quantity, Total Amount
+
+
+	select description,price,qty,count(productid),sum(qtyonhand),sum(amount) 
+    from product_dharmik11 as pro inner join orders_dharmik as ord
+    on pro.recid = ord.productid
+    group by productid;
+
+Q-5	Find order details for all the customers. There will be one row per customer displaying 	
+	total quantity ordered by them and the amount spent by each customer.
+	
+	Display fields : Company Name, Total Quantity Ordered, Total Amount
+
+select company,sum(qty),sum(amount)
+from customer_dharmik as cus inner join orders_dharmik as ord
+on cus.recid = ord.customerid
+group by ord.customerid;
+
+
+
+Q-6	Display all the sales representatives hired within the past five years from today along with thier Quota and 
+	Sales information.
+	
+	Display fields : Sales Rep. Name, Hired on, Quota, Sales
+
+select name,hiredate,quota,sales from salesreps_dharmik
+where hiredate>subdate(now(),interval 5 year);
+ 
+
+	
+
+
+Q-7	Find total number of customers for all the products ordered. There will be one row per 	
+	order displaying product description, and total number of customers who have ordered 	that product.
+
+	Display fields : Product Description, Total No. of Customers who Ordered this Product.
+
+
+select description,count(productid)
+from product_dharmik11 as pro inner join orders_dharmik as o
+on pro.recid=o.productid
+group by productid;
+
+
+
