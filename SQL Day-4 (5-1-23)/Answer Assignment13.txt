@@ -1,0 +1,263 @@
+i. car (recid, vin, make, model, year, mileage, askprice, invoiceprice)
+
+==> Create Table car_dharmik (recid int NOT NULL, vin int, make varchar(255), 
+model varchar(255), year int, 
+mileage int, askprice int, invoiceprice int,
+Primary Key (recid));
+
+select * from car_dharmik;
+
+Insert into car_dharmik (recid, vin, make, model, year, mileage, askprice, invoiceprice) values
+(1, 101, "Toyota", "Prius", 2018, 30, 30000, 1),
+(2, 102, "Kia", "Prius", 2017, 40, 40000, 2),
+(3, 103, "Audi", "abc", 2019, 35, 45000, 3);
+
+
+ii. dealership (recid, name, address, city, state)
+
+==> Create table dealership_dharmik (recid int NOT NULL,
+name varchar(255), address varchar(255),
+city varchar(255), state varchar(255), 
+Primary Key (recid));
+
+select * from dealership_dharmik;
+
+Insert into dealership_dharmik (recid, name, address, city, state) values
+(1, "Hero Honda", "M.G Road", "Ahmedabad", "Gujarat"),
+(2, "Hyundai", "Science City", "Ahmedabad", "Gujarat"),
+(3, "Toyota", "Garden", "Rajkot", "Gujarat");
+
+
+
+iii. salesperson (recid, name)
+
+==> Create table salesperson_dharmik13 (recid int NOT NULL, name varchar(255),
+Primary Key (recid));
+
+select * from salesperson_dharmik13;
+
+insert into salesperson_dharmik13 (recid, name) values
+(1,"Rakesh"),
+(2, "Manas"),
+(3, "Jay");
+
+
+
+iv. customer (recid, name, address, city, state)
+
+==> create table customer_dharmik13 (recid int NOT NULL, name varchar(255), address varchar(255), 
+city varchar(255), state varchar(255),
+Primary Key (recid));
+
+select * from customer_dharmik13;
+
+insert into customer_dharmik13 (recid, name, address, city, state) values
+(1, "Jaydeep", "Shree Society", "Ahmedabad", "Gujarat"),
+(2, "deep", "Ravi nagar", "Veraval", "Gujarat"),
+(3, "Rajesh", "Om City", "Surat", "Gujarat");
+
+
+
+v. reportsto (recid, salespersonid, managingsalespersonid)
+
+==> create table reportsto_dharmik (recid int NOT NULL, salespersonid int, 
+managingsalespersonid int, Primary Key (recid), 
+foreign key (salespersonid) references salesperson_dharmik13(recid));
+
+select * from reportsto_dharmik;
+
+insert into reportsto_dharmik (recid, salespersonid, managingsalespersonid) values
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3);
+
+
+
+vi. worksat (recid, salespersonid, dealershipid, monthworked, basesalaryformonth)
+
+==> create table worksat_dharmik (recid int NOT NULL, 
+salespersonid int, dealershipid int, monthworked int, 
+basesalaryformonth int, 
+primary key (recid), foreign key (salespersonid) references salesperson_dharmik13(recid),
+foreign key (dealershipid) references dealership_dharmik(recid));
+
+select * from worksat_dharmik;
+
+
+insert into worksat_dharmik (recid, salespersonid, dealershipid, monthworked, basesalaryformonth) values
+(1, 1, 1, 10, 1000),
+(2, 2, 2, 22, 20000),
+(3, 3, 3, 20, 18000);
+
+
+
+vii. inventory (recid, vin, dealershipid)
+
+==> create table inventory_dharmik (recid int NOT NULL, vin int, 
+dealershipid int, primary key (recid),
+foreign key (dealershipid) references dealership_dharmik(recid));
+
+
+select * from inventory_dharmik;
+
+
+insert into inventory_dharmik (recid, vin, dealershipid) values
+(1, 101, 1),
+(2, 102, 2),
+(3, 103, 3);
+
+
+
+viii. sale (recid, vin, customerid, salespersonid, dealershipid, saleprice, saledate)
+
+==> create table sale_dharmik (recid int NOT NULL, vin int, customerid int, 
+salespersonid int, dealershipid int, saleprice int, saledate date, primary key (recid), 
+foreign key (customerid) references customer_dharmik13(recid),
+foreign key (salespersonid) references salesperson_dharmik13(recid),
+foreign key (dealershipid) references dealership_dharmik(recid));
+
+
+select * from sale_dharmik;
+
+
+insert into sale_dharmik (recid, vin, customerid, salespersonid, dealershipid, saleprice, saledate) values
+(1, 101, 1, 1, 1, 10000, '2007-01-01'),
+(2, 102, 2, 2, 2, 23000, '2007-03-01'),
+(3, 103, 3, 3, 3, 27000, '2007-03-31');        
+
+
+
+update dealership_dharmik SET name = "Hero Honda" where recid = 1;
+
+update dealership_dharmik SET name = "Hyundai" where recid = 2;
+
+update dealership_dharmik SET name = "Toyota" where recid = 3;
+
+
+=========================================================================================
+QUERIES :
+=========================================================================================
+
+
+1. Find the names of all salespeople who have ever worked for the company at any dealership.
+
+==> select sp.name from salesperson_dharmik13 as sp inner join worksat_dharmik as wo on 
+sp.recid = wo.salespersonid inner join dealership_dharmik as deal
+on wo.dealershipid = deal.recid;
+
+
+2. List the Name, Street Address, and City of each customer who lives in Ahmedabad.
+
+==> select name, address, city from customer_dharmik13 where city = "Ahmedabad";
+
+
+3. List the VIN, make, model, year, and mileage of all cars in the inventory of the dealership named "Hero Honda Car World".
+
+==> select car.vin, car.make, car.model, car.year, car.mileage from car_dharmik as car inner join inventory_dharmik as inv on
+car.vin = inv.vin inner join dealership_dharmik as dl on inv.dealershipid = dl.recid where dl.name = "Hero Honda";
+
+
+4. List names of all customers who have ever bought cars from the dealership named "Concept Hyundai".
+
+==> select cs.name, deal.name from customer_dharmik13 as cs inner join sale_dharmik as sale on sale.customerid = cs.recid 
+inner join dealership_dharmik as deal on deal.recid = sale.dealershipid where deal.name = "Hyundai";
+ 
+
+5. For each car in the inventory of any dealership, list the VIN, make, model, and year of the car, along with the name, city, and state of the dealership whose inventory contains the car.
+
+
+==> select car.vin, car.make, car.model, car.year, deal.name, deal.city, deal.state from car_dharmik as car inner join inventory_dharmik as inv on
+inv.vin = car.vin inner join dealership_dharmik as deal on inv.dealershipid = deal.recid;         
+ 
+
+6. Find the names of all salespeople who are managed by a salesperson named "Adam Smith".
+
+==> select sp.name from salesperson_dharmik13 as sp inner join reportsto_dharmik as rep on
+rep.salespersonid = sp.recid where rep.managingsalespersonid = 2;
+
+
+7. Find the names of all salespeople who do not have a manager.
+
+==> select name from salesperson_dharmik13 as sp inner join reportsto_dharmik as rep on
+rep.salespersonid = sp.recid where rep.managingsalespersonid=0;
+
+
+8. Find the total number of dealerships.
+
+==> select COUNT(deal.recid) as Total_No from dealership_dharmik as deal inner join inventory_dharmik as inv on
+inv.dealershipid = deal.recid;
+
+
+9. List the VIN, year, and mileage of all "Toyota Camrys" in the inventory of the dealership named "Toyota Performance". (Note that a "Toyota Camry" is indicated by the make being "Toyota" and the model being "Camry".)
+
+==> select car.vin, car.year, car.mileage from car_dharmik as car inner join inventory_dharmik as inv on
+inv.vin = car.vin inner join dealership_dharmik as deal on inv.dealershipid = deal.recid where car.make = "Toyota" and car.model = "Prius"
+and deal.name = "Toyota";
+
+
+10. Find the name of all customers who bought a car at a dealership located in a state other than the state in which they live.
+
+==> select cus.name from customer_dharmik13 as cus inner join sale_dharmik as sale on sale.customerid = cus.recid inner join dealership_dharmik as deal 
+on sale.dealershipid = deal.recid where cus.state != deal.state;
+
+
+11. Find the name of the salesperson that made the largest base salary working at the dealership named "Ferrari Sales" during January 2007.
+
+==> select sp.name from salesperson_dharmik13 as sp inner join worksat_dharmik as wo on
+sp.recid = wo.salespersonid inner join dealership_dharmik as deal on
+wo.dealershipid = deal.recid where deal.name = "Hyundai"
+and basesalaryformonth in (select max(basesalaryformonth) from worksat_dharmik);
+
+
+12. Find the salesperson ID and name of all salespeople who have worked at each one of the company's dealerships at some point in time.
+
+==> select s.recid,s.name
+from worksat_dharmik w,salesperson_dharmik13 s
+where s.recid = w.salespersonid
+group by s.recid,s.name,w.dealershipid
+having (select count(recid) from dealership) = count(w.dealershipid);
+
+
+13. List the name, street address, city, and state of any customer who has bought more than two cars from all dealerships combined since January 1, 2007.
+
+==> select cus.name, cus.address, cus.city, cus.state from customer_dharmik13 as cus inner join sale_dharmik as sale on 
+sale.customerid = cus.recid inner join dealership_dharmik as deal on
+deal.recid = sale.dealershipid where sale.saledate = '2007-01-01';
+
+
+
+14. List the name, salesperson ID, and total sales amount for each salesperson who has ever sold at least one car. The total sales amount for a salesperson is the sum of the sale prices of all cars ever sold by that salesperson.
+
+==> select sa.name,sale.salespersonid,sum(sale.saleprice) as Total_price from salesperson_dharmik13 as sa inner join sale_dharmik as sale
+on sa.recid=sale.salespersonid group by sale.salespersonid;
+
+
+15. Find the names of all customers who bought cars during 2007 who were also salespeople during 2007. For the purpose of this query, assume that no two people have the same name.
+
+==> select c.name from customer_dharmik13 as  c,sale_dharmik as s ,salesperson_dharmik13 as sp
+where s.customerid = c.recid and sp.recid=s.salespersonid
+and s.saledate between '2007-01-01' and '2007-03-31'
+group by c.name;
+
+16. Find the name and salesperson ID of the salesperson who sold the most cars for the company at dealerships located in Gujarat between March 1, 2007 and March 31, 2007.
+
+==> select sa.name,sale.salespersonid from salesperson_dharmik13 as sa inner join sale_dharmik as sale
+on sa.recid=sale.salespersonid inner join dealership_dharmik as de
+on sale.dealershipid=de.recid where de.state='Gujarat' and sa.saledate between '2007-03-01' to '2007-03-31';
+ 
+
+17. Calculate the payroll for the month of March 2007.
+	* The payroll consists of the name, salesperson ID, and gross pay for each salesperson who worked that month.
+        * The gross pay is calculated as the base salary at each dealership employing the salesperson that month, along with the total commission for the salesperson that month.
+        * The total commission for a salesperson in a month is calculated as 5% of the profit made on all cars sold by the salesperson that month.
+        * The profit made on a car is the difference between the sale price and the invoice price of the car. (Assume, that cars are never sold for less than the invoice price.)
+
+
+
+==> Select sa.name,sale.salespersonid, (((sale.saleprice-car.invoiceprice)*5)/100) + wor.basesalaryformonth as Gross_Pay
+from car_dharmik as car inner join sale_dharmik as sale
+on car.vin=sale.vin inner join salesperson_dharmik13 as sa
+on sa.recid=sale.salespersonid inner join worksat_dharmik as wor
+on sale.dealershipid=wor.dealershipid;
+
+

@@ -66,12 +66,15 @@ select * from product_dharmik11;
 
 
 Insert Into orders_dharmik (recid, customerid, orderdate, salesrepsid, productid, qty, amount) values
-(1, 201, '2015-11-23', 10, 1001, 3, 12000),
-(2, 202, '2019-12-12', 11, 1002, 2, 10000),
-(3, 203, '2020-07-08', 12, 1003, 4, 8000);
+(1, 1, '2015-11-23', 1, 1, 3, 12000),
+(2, 2, '2019-12-12', 2, 2, 2, 10000),
+(3, 3, '2020-07-08', 3, 3, 4, 8000);
+
 
 select * from orders_dharmik;
 
+
+update orders_dharmik SET salesrepsid = 1 where recid = 1;
 
 3) customer (recid, company, salesrepsid, creditlimit)
 => create table customer_dharmik
@@ -117,8 +120,8 @@ select * from salesreps_dharmik;
 
 
 Insert Into office_dharmik (recid, city, region, manager, targetsales, actualsales) values
-(1, "Jaipur", "Science City", "Rakesh", 80000, 25000),
-(2, "Jaipur", "Garden City", "Dev", 90000, 30000),
+(1, "Jaipur", "Eastern", "Rakesh", 80000, 25000),
+(2, "Jaipur", "Eastern", "Dev", 90000, 30000),
 (3, "Ahmedabad", "Metro Station", "Jay", 88000, 64000);
 
 select * from office_dharmik;
@@ -175,17 +178,17 @@ Q-4	Find following information for each product:
 	Display fields : Description, Price, Quantity, Orders, Quantity, Total Amount
 
 
-	select description,price,qty,count(productid),sum(qtyonhand),sum(amount) 
-    from product_dharmik11 as pro inner join orders_dharmik as ord
-    on pro.recid = ord.productid
-    group by productid;
+select pro.description, pro.price, pro.qty, count(ord.productid), sum(ord.qty), sum(ord.amount) 
+from product_dharmik11 as pro inner join orders_dharmik as ord
+on pro.recid = ord.productid
+group by productid;
 
 Q-5	Find order details for all the customers. There will be one row per customer displaying 	
 	total quantity ordered by them and the amount spent by each customer.
 	
 	Display fields : Company Name, Total Quantity Ordered, Total Amount
 
-select company,sum(qty),sum(amount)
+select cus.company, sum(ord.qty), sum(ord.amount)
 from customer_dharmik as cus inner join orders_dharmik as ord
 on cus.recid = ord.customerid
 group by ord.customerid;
@@ -210,10 +213,10 @@ Q-7	Find total number of customers for all the products ordered. There will be o
 	Display fields : Product Description, Total No. of Customers who Ordered this Product.
 
 
-select description,count(productid)
+select pro.description, count(o.productid)
 from product_dharmik11 as pro inner join orders_dharmik as o
-on pro.recid=o.productid
-group by productid;
+on pro.recid = o.productid
+group by o.productid;
 
 
 
