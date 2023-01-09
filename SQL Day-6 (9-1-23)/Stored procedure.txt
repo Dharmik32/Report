@@ -1,0 +1,319 @@
+==> DELIMITER &&
+CREATE PROCEDURE car_dharmik ()
+BEGIN
+     SELECT * FROM car_dharmik ;
+END &&
+DELIMITER ;
+
+
+CALL car_dharmik();
+
+
+
+
+==> DELIMITER //
+
+CREATE PROCEDURE GetOfficeByCity(
+	IN cityName VARCHAR(255)
+)
+BEGIN
+	SELECT * 
+ 	FROM dealership_dharmik 
+	WHERE city = cityName;
+END //
+
+DELIMITER ;
+
+
+CALL GetOfficeByCity('Ahmedabad');
+
+
+
+
+
+==> DELIMITER $$
+
+CREATE PROCEDURE GetOrderCountByStatus (
+	IN  dealershipname VARCHAR(25),
+	OUT total INT
+)
+BEGIN
+	SELECT COUNT(city)
+	INTO total
+	FROM dealership_dharmik
+	WHERE name = dealershipname;
+END$$
+
+DELIMITER ;
+
+
+CALL GetOrderCountByStatus('Hyundai',@total);
+SELECT @total;
+
+
+
+==> DELIMITER $$
+
+CREATE PROCEDURE Counted(
+	INOUT counter INT,
+    IN inc INT
+)
+BEGIN
+	SET counter = counter + inc;
+END$$
+
+DELIMITER ;
+
+
+SET @counter = 1;
+CALL Counted(@counter,1); -- 2
+CALL Counted(@counter,1); -- 3
+CALL Counted(@counter,5); -- 8
+SELECT @counter; -- 8
+
+
+
+
+
+==> DELIMITER $$
+
+CREATE PROCEDURE GetOrderAmount()
+BEGIN
+    SELECT 
+        SUM(monthworked * basesalaryformonth) 
+    FROM worksat_dharmik;
+END$$
+
+DELIMITER ;
+
+CALL GetOrderAmount();
+
+
+
+
+
+
+==> DELIMITER $$
+CREATE PROCEDURE LoopD()
+BEGIN
+	DECLARE x  INT;
+	DECLARE str  VARCHAR(255);
+        
+	SET x = 1;
+	SET str =  '';
+        
+	loop_label:  LOOP
+		IF  x > 10 THEN 
+			LEAVE  loop_label;
+		END  IF;
+            
+		SET  x = x + 1;
+		IF  (x mod 2) THEN
+			ITERATE  loop_label;
+		ELSE
+			SET  str = CONCAT(str,x,',');
+		END  IF;
+	END LOOP;
+	SELECT str;
+END$$
+
+DELIMITER ;
+
+
+
+CALL LoopD();
+
+
+
+==> DELIMITER $$
+
+CREATE PROCEDURE RepeatD()
+BEGIN
+    DECLARE counter INT DEFAULT 1;
+    DECLARE result VARCHAR(100) DEFAULT '';
+    
+    REPEAT
+        SET result = CONCAT(result,counter,',');
+        SET counter = counter + 1;
+    UNTIL counter >= 10
+    END REPEAT;
+    
+    -- display result
+    SELECT result;
+END$$
+
+DELIMITER ;
+
+CALL RepeatD();
+
+
+
+
+create table studentmark_d(roll_no int, name varchar(255), marks int, 
+status varchar(255));
+
+insert into studentmark_d (roll_no, name, marks, status) values (1, 'Raj', 60, 'pass');
+insert into studentmark_d (roll_no, name, marks, status) values (2, 'Rahul', '', '');
+insert into studentmark_d (roll_no, name, marks, status) values (3, 'Mehul', '', '');
+insert into studentmark_d (roll_no, name, marks, status) values (4, 'Jay', '', '' );
+
+select * from studentmark_d;
+
+
+
+
+
+==> CREATE PROCEDURE updatestauts_d 
+@mark int,
+@myname varchar(255)
+AS
+BEGIN
+	
+    select * from studentmark_d where marks = @mark;
+    select * from studentmark_d where name = @myname;
+
+
+    
+END
+
+
+
+EXEC updatestauts_d 60, 'Raj'
+
+
+
+
+
+
+
+==> CREATE PROCEDURE updatestautsd
+
+@rno int,
+
+@name char(50) OUT
+
+AS
+
+BEGIN
+
+select @name=name from studentmark_d where roll_no = @rno;
+
+END
+
+
+
+DECLARE @name char(50)
+
+exec updatestautsd 2,@name out;
+
+print @name
+
+
+
+
+==> create proc mark
+as 
+BEGIN
+select * from studentmark_d;
+END
+
+
+mark;
+EXECUTE mark;
+EXEC mark;
+
+
+
+==> create proc addigit
+@Num1 INT,
+@Num2 INT,
+@Result INT OUTPUT
+as
+BEGIN
+
+    set @Result = @Num1 + @Num2;
+END
+
+DECLARE @EID INT
+EXEC addigit 4,4, @EID OUTPUT;
+select @EID;
+
+
+
+
+==> Declare @count int;
+set @count = 1;
+while @count <= 5
+BEGIN
+    print @count;
+    SET @count = @count + 1;
+
+END
+
+print 'End of while loop';
+
+
+
+==> Declare @TableNo int;
+Declare @count int;
+
+set @TableNo = 10;
+set @count = 1;
+
+while @count <= 10
+BEGIN
+    print CONCAT(@TableNo, ' x ', @count, ' = ', @TableNo*@count);
+    SET @count = @count + 1;
+
+END
+
+print 'End of loop';
+
+
+
+
+==> CREATE PROC usp_divide(
+    @a decimal,
+    @b decimal,
+    @c decimal output
+) AS
+BEGIN
+    BEGIN TRY
+        SET @c = @a / @b;
+    END TRY
+    BEGIN CATCH
+        SELECT  
+            ERROR_NUMBER() AS ErrorNumber  
+            ,ERROR_SEVERITY() AS ErrorSeverity  
+            ,ERROR_STATE() AS ErrorState  
+            ,ERROR_PROCEDURE() AS ErrorProcedure  
+            ,ERROR_LINE() AS ErrorLine  
+            ,ERROR_MESSAGE() AS ErrorMessage;  
+    END CATCH
+END;
+GO
+
+
+DECLARE @r decimal;
+EXEC usp_divide 10, 2, @r output;
+PRINT @r;
+
+
+
+==> DECLARE 
+    @ErrorMessage  NVARCHAR(4000), 
+    @ErrorSeverity INT, 
+    @ErrorState    INT;
+
+BEGIN TRY
+    RAISERROR('Error occurred in the TRY block.', 17, 1);
+END TRY
+BEGIN CATCH
+    SELECT 
+        @ErrorMessage = ERROR_MESSAGE(), 
+        @ErrorSeverity = ERROR_SEVERITY(), 
+        @ErrorState = ERROR_STATE();
+
+    -- return the error inside the CATCH block
+    RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+END CATCH;

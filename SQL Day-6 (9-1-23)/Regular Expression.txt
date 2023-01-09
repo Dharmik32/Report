@@ -1,0 +1,80 @@
+REGEXP operator
+
+
+MySQL REGEXP operator using(^)
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP '^R';
+
+
+REGEXP operator using ($)
+SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP 'R$';
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP "a"; 
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP "[abc]"; 
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP "[x-z]"; 
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP "^...$"; 
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP "^.{5}$"; 
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP "[a-j].[y]";
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP '[^ay]';
+
+
+Matches the end of words[[:>:]]
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP 'as[[:>:]]';
+
+
+Matches the beginning of words[[:<:]]
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP '[[:<:]]rak';
+
+
+Matches a character class[:class:]:
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP '[:alpha:]';
+
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name REGEXP '^[ma]';
+
+
+
+RLIKE operator in MySQL
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name RLIKE '^j';
+ 
+
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name RLIKE 'y$';
+
+
+MySQL NOT LIKE operator
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name NOT LIKE 'R%';
+
+
+MySQL NOT REGXP operator
+==> SELECT Name FROM salesperson_dharmik13
+WHERE name NOT REGEXP '^R';
+
+
+   
