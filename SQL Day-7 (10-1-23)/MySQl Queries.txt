@@ -1,0 +1,78 @@
+MySQl Queries & Indexes
+
+1. Insert,Delete,update,select records, Replace,
+
+select * from student_dharmik11;
+
+
+Insert 
+==> Insert into student_dharmik11 (recid, rollno, fname, sname, surname, admitdate, birthdate, standard, sex) values
+(4, 104, "Raj", "Ombhai", "Soni", '2009-12-21', '2021-12-27', 11, "Male");
+
+
+Delete 
+==> Delete from student_dharmik11 where rollno = 104;
+
+
+update
+==> Update student_dharmik11 SET rollno = 108 where recid = 3;
+
+
+Replace
+==> Select Replace('Rahul', 'R', 'M');
+
+
+
+
+
+Create ,Drop,show,unique,clustered & Non-clustered Indexes
+
+==> CREATE TABLE Books_d
+(
+id INT PRIMARY KEY NOT NULL,
+name VARCHAR(50) NOT NULL,
+category VARCHAR(50) NOT NULL,
+price INT NOT NULL
+);
+
+
+INSERT INTO Books_d
+    
+VALUES
+(4, 'Book1', 'Cat1', 1800),
+(5, 'Book2', 'Cat2', 1500),
+(2, 'Book3', 'Cat3', 2000),
+(1, 'Book4', 'Cat4', 1300),
+(3, 'Book5', 'Cat5', 1500),
+(10, 'Book6', 'Cat6', 5000),
+(8, 'Book7', 'Cat7', 8000),
+(6, 'Book8', 'Cat8', 5000),
+(9, 'Book9', 'Cat9', 5400),
+(7, 'Book10', 'Cat10', 3200);
+
+
+select * from Books_d;
+
+
+==> Clustered indexes
+
+
+EXECUTE sp_helpindex Books_d;
+
+
+
+ALTER TABLE Books_d
+DROP CONSTRAINT PK__Books_d__3213E83FAD27D434
+GO
+
+
+CREATE CLUSTERED INDEX IX_tblBook_Price
+ON Books(price ASC)
+
+EXECUTE sp_helpindex Books_d;
+
+
+==> Non-clustered indexes
+
+==> CREATE NONCLUSTERED INDEX IX_tblBook_Name
+ON Books_d(name ASC)
