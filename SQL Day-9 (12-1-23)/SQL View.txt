@@ -1,0 +1,35 @@
+CREATE TABLE Books_d
+(
+id INT PRIMARY KEY NOT NULL,
+name VARCHAR(50) NOT NULL,
+category VARCHAR(50) NOT NULL,
+price INT NOT NULL
+);
+
+
+
+Create VIEW
+==> create view abc as select name, category from Books_d where category = 'cat3';
+
+
+Update VIEW
+==> ALTER view abc as select name,
+category, price from Books_d where category = 'cat5';
+
+
+==> CREATE OR REPLACE VIEW abc AS
+SELECT name, category, price
+FROM Books_d
+WHERE category = 'cat5';
+
+
+Drop VIEW
+==> DROP VIEW abc;
+
+
+
+Rename View
+==> Rename TABLE abc 
+TO dharmik_abc;
+
+==> EXEC sp_rename 'abc', 'dharmik_abc';
