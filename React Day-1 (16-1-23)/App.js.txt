@@ -1,0 +1,138 @@
+// import React from "react";
+// import React from "react-dom";
+// import "./style.css";
+// import User from './User';
+
+// export default function App() {
+//   return (
+//     <div>
+//       <h1>Hello StackBlitz!</h1>
+//       <h2>hello</h2>
+//       <User />
+//     </div>
+//   );
+// }
+
+// import React from "react";
+// import "./style.css";
+// import User from './User';
+
+// export default function App() {
+//   let data = "XYZ";
+
+//   function Apple()
+//   {
+//     data = "ABC";
+//     alert(data);
+//   }
+//   return (
+//     <div>
+//       <h1>Hello</h1>
+//       <h1>{data}</h1>
+//       <User />
+//       <User></User>
+
+//       <button onclick={()=>Apple()}>Click Me</button>
+
+//     </div>
+//   );
+// }
+
+// import React from "react";
+// import "./style.css";
+// // import User from './User';
+// import {useState} from react;
+
+// export default function App() {
+//   const [data,setData] = useState(0)
+
+//   function updateData()
+//   {
+//     setData(data+1)
+//   }
+//   return (
+//     <div>
+//       <h1>{data}</h1>
+//       <button onclick={updateData}>Click Me</button>
+//     </div>
+//   );
+// }
+
+// import React from "react";
+// import "./style.css";
+// // import User from './User';
+// // import {useState} from react;
+
+//  class App extends React.Component {
+
+//   constructor()
+//   {
+//     super()
+//     this.state={
+//       data:"XYZ",
+//     }
+//   }
+
+//   apple()
+//   {
+//     this.setState({data: "ABC"})
+//   }
+
+//   render()
+//   {
+//     return (
+//      <div>
+//         <h1>{this.state.data}</h1>
+//         <button onClick={()=>this.apple()}>Update Data</button>
+
+//     </div>
+//     );
+
+//     }
+// }
+// export default App;
+
+// import React, { useState } from 'react';
+// import './style.css';
+// import Student from './Student';
+// // import User from './User';
+// // import {useState} from react;
+
+// function App() {
+//   // const [name,setName] = useState("ABC")
+//   return (
+//     <div>
+//       <h1>Props in React</h1>
+//       <Student name={'ABC'} email="abc@test.com" />
+//       <Student name={'DEF'} email="def@test.com" />
+//       <Student name={'HIJ'} email="hij@test.com" />
+//       {/* <button onClick={()=>{setName("XYZ")}}>Update Name</button> */}
+//     </div>
+//   );
+// }
+// export default App;
+
+import React, { useState } from 'react';
+import './style.css';
+// import Student from './Student';
+// // import User from './User';
+// // import {useState} from react;
+function App() {
+  const [data, setData] = useState(null);
+  const [print, setPrint] = useState(false);
+
+  function getData(val) {
+    console.warn(val.target.value);
+    setData(val.target.value);
+    setPrint(false);
+  }
+
+  return (
+    <div>
+      {print ? <h1>{data}</h1> : null}
+      <input type="text" onChange={getData}></input>
+      <button onClick={() => setPrint(true)}>Print Data</button>
+    </div>
+  );
+}
+export default App;
